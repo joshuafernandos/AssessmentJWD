@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,5 +44,22 @@ class PublicController extends Controller
             'nav' => 'invoice',
             'order' =>  $data
         ]);
+    }
+    public function dashboard()
+    {
+        if(!auth()->check() || auth()->user()->is_admin === 0){
+            abort(403);
+        }
+        $data = DB::table('order')->get();
+        return view('dashboard.index', [
+            'nav' => 'orders',
+            'data' => $data
+        ]);
+    }
+    public function payment($order)
+    {
+        DB::table('order')->where('id', $order)->update(array('payment' => '1'));
+
+        return redirect('/dashboard');
     }
 }

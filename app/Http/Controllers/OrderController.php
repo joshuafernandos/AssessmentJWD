@@ -47,12 +47,10 @@ class OrderController extends Controller
         $harga = $request->input('harga');
         $total = $request->input('total');
 
-        $user = auth()->user()->id; 
+        $user = auth()->user()->id;
 
-        $data = array('nama'=>$nama, 'user_id'=>$user, 'identitas'=>$identitas, 'nomor'=>$nomor, 'category_id'=>$kelas,
-                'jadwal'=>$jadwal, 'penumpangdibawah60'=>$penumpangdibawah60, 'penumpangdiatas60'=>$penumpangdiatas60,
-                'harga'=>$harga, 'total'=>$total);
-        
+        $data = ['nama' => $nama, 'user_id' => $user, 'identitas' => $identitas, 'nomor' => $nomor, 'category_id' => $kelas, 'jadwal' => $jadwal, 'penumpangdibawah60' => $penumpangdibawah60, 'penumpangdiatas60' => $penumpangdiatas60, 'harga' => $harga, 'total' => $total];
+
         DB::table('order')->insert($data);
 
         return redirect('/invoice')->with('success', 'Booking Success, please do the payment');

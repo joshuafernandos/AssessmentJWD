@@ -26,6 +26,7 @@ return new class extends Migration
             $table->bigInteger('penumpangdiatas60');
             $table->foreignId('harga');
             $table->bigInteger('total');
+            $table->boolean('payment')->default(false);
         });
     }
 

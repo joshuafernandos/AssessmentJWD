@@ -34,6 +34,7 @@
                         <th scope="col"> >60 </th>
                         <th scope="col"> Price </th>
                         <th scope="col"> Total </th>
+                        <th scope="col"> Status </th>
                     </tr>
                 </thead>
                 @foreach ($order as $row)
@@ -49,6 +50,13 @@
                             <td>{{ $row->penumpangdiatas60 }}</td>
                             <td>{{ $row->harga }}</td>
                             <td>{{ $row->total }}</td>
+                            <td>
+                                @if ($row->payment === 1)
+                                    <button class="btn btn-success btn-sm" disabled>Payment Recieved</button>
+                                @else
+                                    <button class="btn btn-warning btn-sm" disabled>Waiting for Validated</button>
+                                @endif
+                            </td>
                         </tr>
                     </tbody>
                 @endforeach

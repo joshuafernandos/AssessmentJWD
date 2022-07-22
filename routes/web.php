@@ -26,6 +26,7 @@ Route::get('/category/{category:slug}', [PublicController::class, 'show'])->midd
 Route::get('/login', [PublicController::class, 'login'])->name('login')->middleware('guest');
 Route::get('/register', [PublicController::class, 'register'])->middleware('guest');
 Route::get('/invoice', [PublicController::class, 'invoice'])->middleware('auth');
+Route::get('/dashboard', [PublicController::class, 'dashboard'])->middleware('auth');
 
 // order
 Route::post('/order', [OrderController::class, 'store']);
@@ -36,3 +37,6 @@ Route::post('/regist', [RegisterController::class, 'store']);
 // login
 Route::post('/log', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
+
+// validate
+Route::post('/validating/{order:id}', [PublicController::class, 'payment']);

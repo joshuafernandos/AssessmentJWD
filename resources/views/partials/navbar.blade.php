@@ -7,24 +7,33 @@
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" class="nav-link px-2 {{ ('home' === $nav) ? 'link-secondary' : 'link-dark' }}">Home</a></li>
+            <li><a href="/" class="nav-link px-2 {{ 'home' === $nav ? 'link-secondary' : 'link-dark' }}">Home</a>
+            </li>
             <li><a href="/#services" class="nav-link px-2 link-dark">Services</a></li>
-            <li><a href="/invoice" class="nav-link px-2 {{ ('invoice' === $nav) ? 'link-secondary' : 'link-dark' }}">Invoice</a></li>
+            <li><a href="/invoice"
+                    class="nav-link px-2 {{ 'invoice' === $nav ? 'link-secondary' : 'link-dark' }}">Invoice</a></li>
         </ul>
 
         @auth
             <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false"><i class="bi bi-door-open-fill"></i> {{ auth()->user()->name }}</button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/profile"><i class="bi bi-layout-text-window-reverse"></i> My
-                        Profile</a></li>
-                <li>
-                    <hr class="dropdown-devider">
-                </li>
+                @if (auth()->user()->is_admin === 1)
+                    <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-window-reverse"></i> My
+                            Dashboard</a></li>
+                    <li>
+                        <hr class="dropdown-devider">
+                    </li>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-left"></i> Log Out</button>
+                    </form>
+                @else
                 <form action="/logout" method="POST">
                     @csrf
                     <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-left"></i> Log Out</button>
                 </form>
+                @endif
             </ul>
         @else
             <div class="col-md-3 text-end">
