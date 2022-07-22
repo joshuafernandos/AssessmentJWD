@@ -60,6 +60,6 @@ class PublicController extends Controller
     {
         DB::table('order')->where('id', $order)->update(array('payment' => '1'));
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('success', 'Validating success');
     }
 }
